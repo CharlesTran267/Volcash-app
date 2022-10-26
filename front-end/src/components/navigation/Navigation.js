@@ -47,13 +47,13 @@ export default function Navigation() {
           >
             Plots 
           </Button>
-          <Button
+          {/* <Button
             className={classes.navBtn}
             color='inherit'
             onClick={() => changeLocation('/contribute')}
           >
             Contribute 
-          </Button>
+          </Button> */}
         </div>
         
       </Toolbar>

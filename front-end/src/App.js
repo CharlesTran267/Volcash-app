@@ -21,7 +21,7 @@ function App() {
             <Route path="/volcano/:volc_name" element={<VolcanoDetailPage/>}/>
             <Route path={'/catalogue'} element={<CataloguePage/>}/>
             <Route path={'/analytic'} element={<Dashboard/>}/>
-            <Route path={'/contribute'} element={<ContributePage/>}/>
+            {/* <Route path={'/contribute'} element={<ContributePage/>}/> */}
             <Route path={'/'} element={<Home/>}/>
           </Routes>
         </main>

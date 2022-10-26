@@ -22,8 +22,7 @@ function CatalogPage() {
   const proxy = constants.PROXY
   const examplePar = require("./examplePar.json")
   const classes = useStyles();
-  00
-  co.nst [tags,setTags] = useState(originalTags)
+  const [tags,setTags] = useState(originalTags)
   const [selectedTags,setSelectedTags] = useState([]);
   const [fetchedData, setFetchedData] = useState({})
   const [particles,setParticles] = useState([]);
@@ -375,8 +374,8 @@ function CatalogPage() {
               style={{ marginBottom: 10 }}
             >
               Sorry! There is no result for "{filterSubmit}" in our database.
-              <br/>
-              <a href="/contribute/binocular" style={{textDecoration:"underline"}}>Help us expand our Database!</a>
+              {/* <br/>
+              <a href="/contribute/binocular" style={{textDecoration:"underline"}}>Help us expand our Database!</a> */}
             </Typography>
           )}
         </Typography>
