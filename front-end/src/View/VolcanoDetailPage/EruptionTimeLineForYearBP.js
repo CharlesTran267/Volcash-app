@@ -33,7 +33,7 @@ const EruptionTimeLineForYearBP = (props) =>{
              alert("Failed to fetch data")
            }
          })	
-         
+        
 	},[])
   let Vol = [];
   let TaalEruptionYear = [];
@@ -55,19 +55,24 @@ for (let i=0;i<volcanoes.length;i++){
 let list = [];
 // let timeMode = 0;
 
+let check = {}
+
 for(let i=0;i<eruptions.length;i++){
-  if(eruptions[i]['volc_name'] === vol ){
+  let s = eruptions[i]['ed_yearsBP'];
+  if(eruptions[i]['volc_name'] === vol && !check[s] ){
   
-    let s = eruptions[i]['ed_yearsBP'];
-    Vol.push({s:parseFloat(s),e:s - 1000})
-  
+    check[s] = 1
+    Vol.push({s:Math.floor(- parseFloat(s)/100)*100,e:Math.floor(( - parseFloat(s) + 1000)/100)*100})
     
-   
   }
 
 }
 
-for(let i = 1200000;i>=0;i-=100){
+console.log(Vol)
+
+Vol.reverse()
+
+for(let i = -1200000;i<=0;i+=100){
   list.push(i);
 }
 
@@ -145,7 +150,7 @@ for(let i=0;i<TaalEruptionYear.length;i++){
   for(let i =0;i<AFE.length;i++){
     if(AFE[i]['volc_num'] === volc_num){
     let s = AFE[i]['afe_date'].substr(0,4) + '.' + AFE[i]['afe_date'].substr(5,7);
-    AFEDummyData.push({x:parseFloat(s),y:5});
+    AFEDummyData.push({x: Math.floor(- parseFloat(s)/100)*100,y:5});
     }
   
 }
@@ -154,11 +159,10 @@ for(let i=0;i<TaalEruptionYear.length;i++){
 
   }
 
+  console.log(AFEDummyData)
   let fillList = TaalData;
 
-
-
-	fillList.sort((a,b) => a.x > b.x && 1 || -1 )
+  // fillList.reverse()
 
   let zoomList = [];
  
@@ -202,13 +206,39 @@ zoomList.push({
   })
 
 
+  // const MouseDown = () =>{
+  //   var e = window.event;
+  //   var w = window.innerWidth;
+  //   var posX = e.clientX;
+   
+  //   setYearDown(EruptionLabel[0] - 20700*(posX/w-20/w)/(34/1987) );
+
+      
+  // }
+
+  // const MouseUp = () =>{
+  //   var e = window.event;
+  //   var w = window.innerWidth;
+  //   var posX = e.clientX;
+  //   // let x = Math.floor((posX-19)/19)
+  //   setYearUp( EruptionLabel[0] - 20700*(posX/w-20/w)/(34/1987)  );
+  //   var yU =  EruptionLabel[0]-  20700*(posX/w-20/w)/(34/1987) ;
+  //   // var m = Math.floor((yU-Math.floor(yU)) /0.1) + 1 ;
+   
+  //   props.onPassData(yearDown,yU);
+
+  // }
+
   const MouseDown = () =>{
     var e = window.event;
     var w = window.innerWidth;
     var posX = e.clientX;
+	
    
-    setYearDown(EruptionLabel[0] - 20700*(posX/w-20/w)/(34/1987) );
-
+    let dis = Math.floor(list[Math.floor((list.length)/29)+1] - list[0]) 
+    
+    // console.log(Math.floor(Math.floor(dis*(posX/w-(462)/w)/(33/w) + list[0] )/1000)*1000)
+    setYearDown(Math.floor(Math.floor(dis*(posX/w-(462)/w)/(33/w) + list[0] )/100)*100);
       
   }
 
@@ -217,13 +247,20 @@ zoomList.push({
     var w = window.innerWidth;
     var posX = e.clientX;
     // let x = Math.floor((posX-19)/19)
-    setYearUp( EruptionLabel[0] - 20700*(posX/w-20/w)/(34/1987)  );
-    var yU =  EruptionLabel[0]-  20700*(posX/w-20/w)/(34/1987) ;
+    let dis = Math.floor(list[(Math.floor(list.length/29))+1] - list[0]) 
+    
+  
+    setYearUp(Math.floor(Math.floor(dis*(posX/w-(462)/w)/(33/w) + list[0] )/100)*100)
+    var yU = Math.floor(Math.floor(dis*(posX/w-(462)/w)/(33/w) + list[0] )/100)*100
     // var m = Math.floor((yU-Math.floor(yU)) /0.1) + 1 ;
+    console.log(yearDown)
+   console.log(yU)
    
     props.onPassData(yearDown,yU);
 
   }
+
+  console.log(zoomList)
 
 
 	const graphData = {
@@ -244,14 +281,14 @@ zoomList.push({
     position: 'Right',
     fill: false,
     lineTension: 0.5,
-    backgroundColor: 'red',
+    backgroundColor: '#7F131B',
     pointStyle: 'rectRot',
     pointRadius: 5,
     borderColor: 'rgba(0,0,0,1)',
-    borderWidth: 2,
+    borderWidth: 0,
     data: AFEDummyData,
     showLine: false,
-    pointRadius: 5,
+    pointRadius: 6,
   }
 ],
 }
@@ -274,7 +311,7 @@ zoomList.push({
                 display:true,
                 ticks: {
                   autoSkip: true,
-                  maxTicksLimit: 58,
+                  maxTicksLimit: 30,
               
               }
               }
@@ -315,9 +352,9 @@ zoomList.push({
       
     <div>
 		  <Line 
+      
 		  data={graphData}
-		      height={300}
-		      width={300}
+		      height={180}
 		      options={opt}
 		  />
     </div>

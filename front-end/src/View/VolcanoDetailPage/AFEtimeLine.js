@@ -64,7 +64,7 @@ const AFEtimeGraph = (props) =>{
 
 
 	let TaalData = [];
-
+		  console.log(list)
 
 var pathArray = window.location.pathname.split('/');
 let vol =props.onGetVolcName();
@@ -232,14 +232,14 @@ for(let i=0;i<Vol.length;i++){
       position: 'Right',
       fill: false,
       lineTension: 0.5,
-      backgroundColor: 'red',
+      backgroundColor: '#7F131B',
       pointStyle: 'rectRot',
-      pointRadius: 5,
+      
       borderColor: 'rgba(0,0,0,1)',
-      borderWidth: 2,
+      borderWidth: 0,
       data: AFEFilteredData,
       showLine: false,
-      pointRadius: 5,
+      pointRadius: 6,
     }
   ],
 	}
@@ -293,8 +293,9 @@ for(let i=0;i<Vol.length;i++){
 		<div>
 		<Line 
 		data={AFEdata}
-		height={200}
-		width={200}
+
+		height={180}
+		
 		options ={opt}
 		/>
 		</div>
@@ -305,5 +306,4 @@ for(let i=0;i<Vol.length;i++){
 		
 	);
 }
-
 export default AFEtimeGraph;

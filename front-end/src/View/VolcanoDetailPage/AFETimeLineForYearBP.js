@@ -49,7 +49,7 @@ const AFEtimeLineForYearBP = (props) =>{
 		  for(let i =0;i<12;i++){
 		    if(AFE[i]['volc_num'] === volc_num){
 		    let s = AFE[i]['afe_date'].substr(0,4) + '.' + AFE[i]['afe_date'].substr(5,7);
-		    a.push({x: parseFloat(s),y:5});
+		    a.push({x: Math.floor(-parseFloat(s)/100)*100,y:5});
 		    }
 		}
 		  }
@@ -80,18 +80,18 @@ let vol =props.onGetVolcName();
     
 let Vol = []
 
-for(let i=0;i<eruptions.length;i++){
-    if(eruptions[i]['volc_name'] === vol ){
-    
-      let s = eruptions[i]['ed_yearsBP'];
-      Vol.push({s:parseFloat(s),e:s - 1000})
-    
-      
-     
-    }
-  
-  }
+let check = {}
 
+for(let i=0;i<eruptions.length;i++){
+	let s = eruptions[i]['ed_yearsBP'];
+	if(eruptions[i]['volc_name'] === vol && !check[s] ){
+	
+	  check[s] = 1
+	  Vol.push({s:Math.floor(- parseFloat(s)/100)*100,e:Math.floor(( - parseFloat(s) + 1000)/100)*100})
+	  
+	}
+      
+      }
 
 
 
@@ -230,20 +230,21 @@ for(let i=0;i<Vol.length;i++){
 
     },
     {
-      position: 'Right',
-      fill: false,
-      lineTension: 0.5,
-      backgroundColor: 'red',
-      pointStyle: 'rectRot',
-      pointRadius: 5,
-      borderColor: 'rgba(0,0,0,1)',
-      borderWidth: 2,
-      data: AFEFilteredData,
-      showLine: false,
-      pointRadius: 5,
+	position: 'Right',
+	fill: false,
+	lineTension: 0.5,
+	backgroundColor: '#7F131B',
+	pointStyle: 'rectRot',
+	pointRadius: 5,
+	borderColor: 'rgba(0,0,0,1)',
+	borderWidth: 0,
+	data: AFEFilteredData,
+	showLine: false,
+	pointRadius: 6,
     }
   ],
 	}
+
 	const opt = {maintainAspectRatio: false,
 		scales: {
 			y: {
@@ -255,7 +256,7 @@ for(let i=0;i<Vol.length;i++){
 			  display:true,
 			  ticks: {
 				autoSkip: true,
-				maxTicksLimit: 55
+				maxTicksLimit: 30
 			    },
 	
 
@@ -294,8 +295,7 @@ for(let i=0;i<Vol.length;i++){
 		<div>
 		<Line 
 		data={AFEdata}
-		height={200}
-		width={200}
+		height={180}
 		options ={opt}
 		/>
 		</div>

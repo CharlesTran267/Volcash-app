@@ -5,15 +5,15 @@ import { useState } from 'react';
 
 
 const DragBox = (props) => {
-	
-	const [aa,setAA] = useState(0);
-	const [dd,setDD] = useState(0);
+
+	const [aa,setAA] = useState(window.screen.width*(30/100));
+	const [dd,setDD] = useState(window.screen.width*(30/100));
 	const [check,setCheck] = useState(0);
 	
 
 	const hD = () =>{
 		if(check != 0){
-			let r = window.event.clientX - dd;
+			let r = window.event.clientX - dd - window.screen.width*(30/100);
 		
 			setAA(r)
 		}
@@ -21,7 +21,7 @@ const DragBox = (props) => {
 
 	const mD = () =>{
 		setCheck(1);
-		setDD(window.event.clientX);
+		setDD(window.event.clientX-window.screen.width*(30/100));
 	}
 
 	const mU = () => {
@@ -34,7 +34,7 @@ const DragBox = (props) => {
 			onMouseMove = {hD}
 			onMouseDownCapture = {mD}
 			onMouseUpCapture = {mU} >
-			<div class = 'dragBox' style = {{left: dd, width: aa}} 
+			<div class = 'dragBox' style = {{left: dd, width: aa,height:'80px'}} 
 			
 			>!</div>
 	</div>

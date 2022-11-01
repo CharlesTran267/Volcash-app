@@ -3,14 +3,19 @@ import { Line } from 'react-chartjs-2';
 import DragBox from './DragBox';
 import { useState,useEffect } from 'react';
 import * as constants from '../../Constants'
+import VolcanoTimeLine from './VolcanoeTimeLine';
 let c = 0
+let Vol = []
 
+let start = 1010
+let end = 2023
 const axios = require('axios')
 const proxy = constants.PROXY
 const OverviewTimeLine = (props) =>{
   const [eruptions,setEruptions] = useState([])
   const [volcanoes,setVolcanoes] = useState([])
   const [AFE,setAFE] = useState([])
+  const [r,reset] = useState(0)
 
 
   useEffect(() =>{
@@ -22,7 +27,8 @@ const OverviewTimeLine = (props) =>{
 
 		axios.get(`${proxy}/volcanoes/getEruptions`)
 		.then(data =>{
-      setEruptions(data.data['eruptions'])
+      setEruptions(data.data['eruptions'])      
+      
 		})
 	  axios.get(`${proxy}/volcanoes/getVolcanoes`)
 
@@ -35,7 +41,9 @@ const OverviewTimeLine = (props) =>{
          })	
          
 	},[])
-  let Vol = [];
+
+
+  // let Vol = [];
   let TaalEruptionYear = [];
 const TaalData = [];
 
@@ -53,29 +61,59 @@ for (let i=0;i<volcanoes.length;i++){
 }
 
 let list = [];
+
+console.log('testing')
 // let timeMode = 0;
 
-for(let i=0;i<eruptions.length;i++){
-  if(eruptions[i]['volc_name'] === vol && eruptions[i]['ed_stime'] && eruptions[i]['ed_etime'] ){
+// for(let i=0;i<eruptions.length;i++){
+//   if(eruptions[i]['volc_name'] === vol && eruptions[i]['ed_stime'] && eruptions[i]['ed_etime'] ){
   
-  let s = eruptions[i]['ed_stime'].substr(0,4) + '.' + eruptions[i]['ed_stime'].substr(5,7);
-  let e = eruptions[i]['ed_etime'].substr(0,4) + '.' + eruptions[i]['ed_etime'].substr(5,7);
-  // if(s === 'undefined'){
-  //   s = eruptions[i]['ed_yearsBP'];
-  //   e = eruptions[i]['ed_yearsBP_unc'];
-  // }
-    if(parseFloat(s) !== parseFloat(e)){
-    Vol.push({s:parseFloat(s),e:parseFloat(e)})
-    }
-    else{
-      Vol.push({s:parseFloat(s),e:parseFloat(e)+1})
-    }
+//   let s = eruptions[i]['ed_stime'].substr(0,4) + '.' + eruptions[i]['ed_stime'].substr(5,7);
+//   let e = eruptions[i]['ed_etime'].substr(0,4) + '.' + eruptions[i]['ed_etime'].substr(5,7);
+//   // if(s === 'undefined'){
+//   //   s = eruptions[i]['ed_yearsBP'];
+//   //   e = eruptions[i]['ed_yearsBP_unc'];
+//   // }
+//     if(parseFloat(s) !== parseFloat(e)){
+//     Vol.push({s:parseFloat(s),e:parseFloat(e)})
+//     }
+//     else{
+//       Vol.push({s:parseFloat(s),e:parseFloat(e)+1})
+//     }
    
+//   }
+
+// }
+if(eruptions.length >0){
+
+let Vol = []
+for (let i=0;i<eruptions.length;i++){
+    
+    if(eruptions[i]['volc_name'] === vol && eruptions[i]['ed_stime'] && eruptions[i]['ed_etime'] ){
+    
+    let s = eruptions[i]['ed_stime'].substr(0,4) + '.' + eruptions[i]['ed_stime'].substr(5,7);
+    let e = eruptions[i]['ed_etime'].substr(0,4) + '.' + eruptions[i]['ed_etime'].substr(5,7);
+    
+      if(parseFloat(s) !== parseFloat(e)){
+      Vol.push({s:parseFloat(s),e:parseFloat(e)})
+      }
+      else{
+        Vol.push({s:parseFloat(s),e:parseFloat(e)+1})
+      }
+     
+    }
+  
   }
 
-}
 
-for(let i = 1910;i<=2023;i++){
+
+
+  
+let start = Vol[Vol.length - 1].s -2;
+let end = Vol[0].e +2 
+
+
+for(let i = Math.floor(start);i<= Math.floor(end);i++){
   for(let j = 0.01;j<=0.12;j+=0.01){
     if(j===0.01){
       list.push(i+j)
@@ -84,6 +122,9 @@ for(let i = 1910;i<=2023;i++){
       list.push(i+j);
   }
 }
+
+
+
 
 
 
@@ -142,11 +183,12 @@ for(let i=0;i<TaalEruptionYear.length;i++){
 
 
 
+}
   
 
 
 
-  const [lb,setLB] = useState(list);
+  
 
   const [yearDown,setYearDown] = useState(0);
   const [yearUp,setYearUp] = useState(0);
@@ -222,8 +264,11 @@ zoomList.push({
     var e = window.event;
     var w = window.innerWidth;
     var posX = e.clientX;
-   
-    setYearDown(2*(posX/w-20/w)/(34/1987) + EruptionLabel[0] );
+	
+    console.log(posX)
+    let dis = Math.floor(list[Math.floor((list.length)/29)+1] - list[0]) + [list[Math.floor(list.length/29)+1] - list[0]-(Math.floor(list[Math.floor(list.length/29)+1] - list[0]))]/(0.12)
+    console.log(dis)
+    setYearDown(dis*(posX/w-(462)/w)/(33/w) + list[0] );
       
   }
 
@@ -232,8 +277,9 @@ zoomList.push({
     var w = window.innerWidth;
     var posX = e.clientX;
     // let x = Math.floor((posX-19)/19)
-    setYearUp(2*(posX/w-20/w)/(34/1987) + EruptionLabel[0] );
-    var yU = 2*(posX/w-20/w)/(34/1987) + EruptionLabel[0];
+    let dis = Math.floor(list[(Math.floor(list.length/29))+1] - list[0]) + [list[Math.floor(list.length/29)+1] - list[0]-(Math.floor(list[Math.floor(list.length/29)+1] - list[0]))]/(0.12)
+    setYearUp((dis)*(posX/w-(462)/w)/(33/w) + list[0] );
+    var yU = (dis)*(posX/w-(462)/w)/(33/w) + list[0];
     // var m = Math.floor((yU-Math.floor(yU)) /0.1) + 1 ;
    
     props.onPassData(yearDown,yU);
@@ -242,7 +288,7 @@ zoomList.push({
 
 
 	const graphData = {
-		labels: lb,
+		labels: list,
   datasets: [
     {
       label: 'Line Dataset',
@@ -259,14 +305,14 @@ zoomList.push({
     position: 'Right',
     fill: false,
     lineTension: 0.5,
-    backgroundColor: 'red',
+    backgroundColor: '#7F131B',
     pointStyle: 'rectRot',
     pointRadius: 5,
     borderColor: 'rgba(0,0,0,1)',
-    borderWidth: 2,
+    borderWidth: 0,
     data: AFEDummyData,
     showLine: false,
-    pointRadius: 5,
+    pointRadius: 6,
   }
 ],
 }
@@ -289,7 +335,7 @@ zoomList.push({
                 display:true,
                 ticks: {
                   autoSkip: true,
-                  maxTicksLimit: 58,
+                  maxTicksLimit: 30,
               
               }
               }
@@ -318,21 +364,25 @@ zoomList.push({
     }
   }
 
+  console.log(graphData)
+
 	return(
 <div>
       <div
+      
       onMouseDownCapture = {MouseDown}
       onMouseUpCapture = {MouseUp}
+      
       >
-        <DragBox  ></DragBox>
+        <DragBox></DragBox>
       </div>
 
       
     <div>
 		  <Line 
 		  data={graphData}
-		      height={300}
-		      width={300}
+		      height={180}
+		     
 		      options={opt}
 		  />
     </div>
