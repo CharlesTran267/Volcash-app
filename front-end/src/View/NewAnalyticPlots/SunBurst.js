@@ -527,6 +527,7 @@ const SunBurst = (props) =>{
 		height: 1500,
 		width: 1440,
 		showlegend: false,
+		colorway:['#00395E','#FBAB18','#F05729','#7F131B','#B51C7D','#3B180D','#646765'],
 		grid: {rows: r+1, columns: 3}
 	      };
 	

@@ -26,8 +26,10 @@ import plotly.express as px
 import matplotlib.image as mpimg
 # %matplotlib inline
 import matplotlib as mpl
+import io
+from flask import Flask, send_file, make_response,Response
 mpl.rcParams['figure.dpi'] = 300
-
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from IPython.core.interactiveshell import InteractiveShell
 InteractiveShell.ast_node_interactivity = "all"
 import sklearn
@@ -53,7 +55,8 @@ cwd = '/content/drive/Othercomputers/My iMac/Desktop/leica_MF'
 # 	os.mkdir('./results')
 
 # mf = pd.read_csv('./results/qia2.csv', index_col = 0)
-mf = pd.read_csv('/content/qia_relabeled.csv', index_col = 0)
+
+mf = pd.read_csv('/Users/vinhkhaitruong/Downloads/Volcanic-Ash-App-master-2/front-end/src/View/NewAnalyticPlots/PCA/qia_relabeled (2).csv', index_col = 0)
 mf = mf.loc[mf.index.notna()] # to remove the embedded headers between samples
 mf.index = mf.index.astype(str)
 print(mf.columns)
@@ -92,7 +95,7 @@ model = pca(normalize=False, n_components=10)
 results = model.fit_transform(Xs.values, col_labels=df.loc[:,'convexity':'value_mode'].columns, row_labels=Y_label.values)
 
 # Scatter plot with loadings
-fig, ax = model.biplot(alpha_transparency=0.5)
+pca1, ax = model.biplot(alpha_transparency=0.5)
 # fig.savefig('./pca/biplot.svg')
 
 # This is to save the data in csv files, but only pd.dfs! 
@@ -125,4 +128,19 @@ fig, ax =model.biplot(cmap=None, label=False, legend=False, title='')
 fig.set_size_inches(8, 4)
 # fig.savefig('./pca/arrows.svg')
 
+output = io.BytesIO()
+FigureCanvas(pca1).print_png(output)
 #model.biplot3d()
+app = Flask(__name__)
+
+print(fig)
+
+@app.route('/plots', methods=['GET'])
+def correlation_matrix():
+    # bytes_obj = do_plot()
+    
+    return Response(output.getvalue(), mimetype='image/png')
+
+if __name__ == '__main__':
+    app.run(host='localhost',port='5004')
+    

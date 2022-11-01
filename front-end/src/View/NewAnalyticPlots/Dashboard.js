@@ -10,6 +10,8 @@ import DropDownForEssentialVariable from '../NewAnalyticPlots/DropDownForEssenti
 import DropDownForSubType from './DropDownSubType';
 import TernaryPlot from './TernaryPlot';
 import Histogram from './Histogram';
+import ComparativePieChart from './ComparativePieChart';
+import BigComparativePieChart from './BigComparativePieChart';
 import DropDownForTernary from './DropDownForTernary';
 const axios = require('axios')
 
@@ -59,6 +61,8 @@ const Dashboard = () =>{
 	const [AFE,setAFE] = useState([])
 	const [ternary,setTernary] = useState('volc_name')
 
+	let w = (1/2)*window.screen.width
+
 	useEffect(() =>{
 		
 		axios.get(`${proxy}/volcanoes/getAFE`)
@@ -89,7 +93,11 @@ const Dashboard = () =>{
 			setVolTable(vols)
 		})
 
-
+		axios.get('http://127.0.0.1:5000/plots').then(
+			data =>{
+				console.log(data)
+			}
+		)
 
 	},[])
 
@@ -177,7 +185,7 @@ const Dashboard = () =>{
 
 		<div style ={{backgroundColor:'white'}}>
 
-		<div style = {{textAlign:'center',paddingTop:'50px',paddingBottom:'50px'}}>
+		<div style = {{textAlign:'center',paddingTop:'10px',paddingBottom:'0px'}}>
 			<h1>Whole Database</h1>
 		</div>
 				{/* <div style={{display:"flex",justifyContent:"center"}}>
@@ -199,14 +207,22 @@ const Dashboard = () =>{
 				</div>
 			</div>
 
-			<DropDownForTernary onPassTernary = {PassTernary}  />
+			<div style = {{display:'flex'}}>
+
+			
 			<div>
 				<TernaryPlot onGetSide = {() => {return [600,800]} } onGetData = {getData} onGetVariable = {() =>{return ternary}} />
 			</div>
 
+			<div style = {{width: {w} }}>
+				<img src = 'http://localhost:5004/plots' width= {w} height="800"/>
+			</div>
+
+			</div>
+
 		</div>
 
-			<div style={{textAlign:"center",paddingTop:'50px',paddingBottom:'50px'}}>
+			<div style={{textAlign:"center",paddingTop:'50px',paddingBottom:'50px',backgroundColor:'white'}}>
 				<h1>Comparative Histogram Plots</h1>
 			</div>
 
@@ -252,7 +268,7 @@ const Dashboard = () =>{
 
 
 
-				<div style = {{ display: 'flex', padding:'20px' }}>
+				{/* <div style = {{ display: 'flex', padding:'20px' }}>
 					<div style = {{ paddingLeft:'25px' }}>
 		
 					<DropDownForEssentialVariable onPassEssential = {onPassEssential}/>
@@ -273,7 +289,7 @@ const Dashboard = () =>{
 
 				<div> 
 					<SunBurst onGetLegendSize = {() =>{return legendSize }} onGetSide = {() =>{return side }} onGetData={getData} onGetPieChartVariable={getPieChartVariable} onGetEssential ={getEssential} onGetMainType={getMainType} onGetSubType={getSubType} onGetAttribute1={getAttribute1} onGetAttribute2={getAttribute2}/>
-				</div>
+				</div> */}
 				
 			</div>
 		</div>

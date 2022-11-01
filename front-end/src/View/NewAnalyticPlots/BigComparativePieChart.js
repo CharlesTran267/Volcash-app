@@ -4,7 +4,7 @@ import { Scatter } from 'react-chartjs-2';
 import { reduce } from 'async';
 import Plot from 'react-plotly.js';
 import { useState } from 'react';
-import DropDownForPie from '../DropDownForPieChart';
+import DropDownForPie from './DropDownForPieChart';
 
 var volc_name = ["La Palma","Kelut","Merapi","Soufrière Guadaloupe","Chillán, Nevados de","On-take","Pinatubo","St. Helens"]
 	

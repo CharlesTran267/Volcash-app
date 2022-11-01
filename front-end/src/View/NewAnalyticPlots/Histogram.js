@@ -19,10 +19,10 @@ var main_type = ['juvenile','free crystal','lithic','altered material']
 var eruptive_style = ['Subplinian','Dome explosion','Lava fountaining','Phreatic','Plinian']
 
 var color_match = {
-	'juvenile':'red',
-	'lithic':'green',
-	'altered material':'orange',
-	'free crystal':'blue'
+	'juvenile':'#7F131B',
+	'lithic':'#004A2D',
+	'altered material':'#F58830',
+	'free crystal':'#006CB7'
 }
 
 const Histogram = (props) =>{
@@ -180,11 +180,20 @@ else{
 
 		let arr_X = []
 		let arr_Y = [] 
+
+		let m = 0;
 		for(const[key,value] of Object.entries(dict)){
 			arr_X.push(key)
 			arr_Y.push(value)
+			if(value > m){
+				m = value
+			}
 		}
 
+		for(let i=0;i<arr_Y.length;i++){
+			
+			arr_Y[i]*=(100/m)*(Math.abs(100-m)/8)
+		}
 
 		console.log(dict)
 
@@ -261,11 +270,18 @@ for(let j =0; j<main_type.length;j++){
 
 	let arr_X = []
 	let arr_Y = [] 
+	let m = 0;
 	for(const[key,value] of Object.entries(dict)){
 		arr_X.push(key)
 		arr_Y.push(value)
+		if(value > m)
+			m = value
 	}
 
+	for(let i=0;i<arr_Y.length;i++){
+			
+		arr_Y[i]*=(100/m)*(Math.abs(100-m)/8)
+	}
 
 	console.log(dict)
 
@@ -506,7 +522,7 @@ for(let j =0; j<main_type.length;j++){
 
 <Plot
 data={pData1}
-layout={ {width: (50/100)*window.screen.width, height: side[1], title: 'Histogram',barmode: 'overlay',
+layout={ {width: (50/100)*window.screen.width,colorway: ['#00395E','#FBAB18','#F05729','#7F131B','#B51C7D','#3B180D','#646765'], height: side[1], title: histogramVariable1,barmode: 'overlay',
 xaxis: {
 	title: {
 	  text: histogramVariable1 + ' frequency',
@@ -541,7 +557,7 @@ xaxis: {
 
 	<Plot
 	data={pData2}
-	layout={ {width: 720, height: side[1], title: 'Histogram',barmode: 'overlay',
+	layout={ {width: (50/100)*window.screen.width ,colorway: ['#00395E','#FBAB18','#F05729','#7F131B','#B51C7D','#3B180D','#646765'], height: side[1], title: histogramVariable2,barmode: 'overlay',
 	xaxis: {
 		title: {
 		  text: histogramVariable2 + ' frequency',
