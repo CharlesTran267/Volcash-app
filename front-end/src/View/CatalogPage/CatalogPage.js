@@ -17,6 +17,7 @@ import stringSimilarity from 'string-similarity'
 import { saveAs } from 'file-saver';
 import * as constants from '../../Constants'
 import XLSX from 'xlsx'
+import VolcanoDetailPage from '../VolcanoDetailPage/VolcanoDetailPage';
 const originalTags=['Volcano Name',"Eruptions", 'Eruptive Style','Main Type','Shape','Crystallinity','Color','Hydrothermal Alteration Degree','Juvenile Type','Lithic Type','Altered Material Type','Free Crystal Type']
 function CatalogPage() {
   const proxy = constants.PROXY
@@ -414,13 +415,30 @@ function CatalogPage() {
         (searchData && Object.keys(searchData).map((key)=>
             key=="Volcanoes"?(searchData[key].length !=0?
             <div>
+               <div style={{display: "flex",flexDirection:"row",flexWrap:"wrap"}}>
+
+<div style ={{display:'flex'}}>
+              <div>
               <h2 style={{fontWeight:700,fontSize:"1.8rem", marginBottom:"20px"}}>VOLCANO </h2>
-              <div style={{display: "flex",flexDirection:"row",flexWrap:"wrap"}}>
+              <div style = {{display:'flex', marginLeft:'-30%'}}>
+                <div  >
                 {searchData[key].map((ele)=>
                 <VolcanoCard
                   info={ele}
                   type={key}
                 />)}
+                </div>
+
+              </div>
+
+              </div>
+
+              <div style= {{width :'100%',marginTop:'-15px'}}>
+                  <VolcanoDetailPage onGetVolcano = {()=>{return searchData[key]}} />
+                </div>
+</div>
+             
+
               </div>
                 <hr
                 style={{
