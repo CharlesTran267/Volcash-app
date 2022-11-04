@@ -3,17 +3,17 @@ import './DetailPage.css';
 import { useState } from 'react';
 
 
-let testWidth = 445
+// let testWidth = 250 + (1/10)*window.innerWidth
 const DragBox = (props) => {
 
-	const [aa,setAA] = useState(testWidth);
-	const [dd,setDD] = useState(testWidth);
+	const [aa,setAA] = useState(250+(1.3/10)*window.innerWidth);
+	const [dd,setDD] = useState(250+(1.3/10)*window.innerWidth);
 	const [check,setCheck] = useState(0);
 	
 
 	const hD = () =>{
 		if(check != 0){
-			let r = window.event.clientX - dd - testWidth;
+			let r = window.event.clientX - dd - 250-(1.3/10)*window.innerWidth;
 		
 			setAA(r)
 		}
@@ -21,7 +21,7 @@ const DragBox = (props) => {
 
 	const mD = () =>{
 		setCheck(1);
-		setDD(window.event.clientX-testWidth);
+		setDD(window.event.clientX -250-(1.3/10)*window.innerWidth);
 	}
 
 	const mU = () => {
