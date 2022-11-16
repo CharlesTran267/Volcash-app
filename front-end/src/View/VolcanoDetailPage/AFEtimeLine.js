@@ -88,7 +88,7 @@ for(let i=0;i<eruptions.length;i++){
 	  Vol.push({s:parseFloat(s),e:parseFloat(e)})
 	  }
 	  else{		  
-	    Vol.push({s:parseFloat(s),e:parseFloat(e)})
+	//     Vol.push({s:parseFloat(s),e:parseFloat(e)})
 	  }
 
 	}

@@ -7,8 +7,8 @@ import VolcanoTimeLine from './VolcanoeTimeLine';
 let c = 0
 let Vol = []
 
-let start = 1010
-let end = 2023
+// let start = 1010
+// let end = 2023
 const axios = require('axios')
 const proxy = constants.PROXY
 const OverviewTimeLine = (props) =>{
@@ -46,7 +46,6 @@ const OverviewTimeLine = (props) =>{
   // let Vol = [];
   let TaalEruptionYear = [];
 const TaalData = [];
-
 
 
 var pathArray = window.location.pathname.split('/');
@@ -98,7 +97,7 @@ for (let i=0;i<eruptions.length;i++){
       Vol.push({s:parseFloat(s),e:parseFloat(e)})
       }
       else{        
-        Vol.push({s:parseFloat(s),e:parseFloat(e)})
+        // Vol.push({s:parseFloat(s),e:parseFloat(e)})
       }
      
     }
@@ -110,7 +109,7 @@ for (let i=0;i<eruptions.length;i++){
 
   
 let start = Vol[Vol.length - 1].s -2;
-let end = Vol[0].e +2 
+let end = Vol[0].e +2; 
 
 
 for(let i = Math.floor(start);i<= Math.floor(end);i++){
@@ -326,6 +325,7 @@ zoomList.push({
           }
       }
   },
+
             scales: {
               y: {
                 display:false,
@@ -335,7 +335,7 @@ zoomList.push({
                 display:true,
                 ticks: {
                   autoSkip: true,
-                  maxTicksLimit: 30,
+                  maxTicksLimit: 5,
               
               }
               }

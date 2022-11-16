@@ -311,7 +311,7 @@ zoomList.push({
                 display:true,
                 ticks: {
                   autoSkip: true,
-                  maxTicksLimit: 30,
+                  maxTicksLimit: 5,
               
               }
               }
