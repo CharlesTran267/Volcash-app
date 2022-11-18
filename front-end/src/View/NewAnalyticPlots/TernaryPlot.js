@@ -49,18 +49,18 @@ const TernaryPlot = (props) =>{
 	let volT ={}
 	let variable = props.onGetVariable();
 
-	for(let i=0;i < eruptive_style.length;i++){
-		volT[eruptive_style[i]] = {total:0, volc:{}}
+	for(let i=0;i < Data.length;i++){
+		volT[Data[i]['volc_name']] = {total:0, volc:{}}
 	}
 
 	for(let i=0;i<Data.length;i++){
-		volT[Data[i]['eruptive_style']].volc[Data[i]['volc_name']] = {'juvenile':0,'lithic':0,'altered material':0,'total':0}
+		volT[Data[i]['volc_name']].volc[Data[i]['eruptive_style']] = {'juvenile':0,'lithic':0,'altered material':0,'total':0}
 
 	}
 
 	for(let i=0;i<Data.length;i++){
-		volT[Data[i]['eruptive_style']].volc[Data[i]['volc_name']][Data[i]['main_type']] += 1;
-		volT[Data[i]['eruptive_style']].total +=1;
+		volT[Data[i]['volc_name']].volc[Data[i]['eruptive_style']][Data[i]['main_type']] += 1;
+		volT[Data[i]['volc_name']].total +=1;
 	}
 
 	
@@ -91,20 +91,29 @@ const TernaryPlot = (props) =>{
 	let t = {}
 
 	for(let i=0;i < Data.length;i++){
-		t[Data[i]['volc_name']] = {total:0, erup:{}}
+		t[Data[i]['eruptive_style']] = {total:0, erup:{}}
 	}
 
 	for(let i=0;i<Data.length;i++){
-		t[Data[i]['volc_name']].erup[Data[i]['eruptive_style']] = {'juvenile':0,'lithic':0,'altered material':0,'total':0}
+		t[Data[i]['eruptive_style']].erup[Data[i]['volc_name']] = {'juvenile':0,'lithic':0,'altered material':0,'total':0}
 
 	}
 
 	for(let i=0;i<Data.length;i++){
-		t[Data[i]['volc_name']].erup[Data[i]['eruptive_style']][Data[i]['main_type']] += 1;
-		t[Data[i]['volc_name']].erup[Data[i]['eruptive_style']]['total'] = volT[Data[i]['eruptive_style']].total;
+		t[Data[i]['eruptive_style']].erup[Data[i]['volc_name']][Data[i]['main_type']] += 1;
+		t[Data[i]['eruptive_style']].erup[Data[i]['volc_name']]['total'] = volT[Data[i]['volc_name']]['total'];
 	}
 
+	// let p = {}
+	// for(let i=0;i < Data.length;i++){
+	// 	p[Data[i]['eruptive_style']] = {total:0, erup:{}}
+	// }
 
+	// for(let i=0;i<Data.length;i++){
+	// 	p[Data[i]['eruptive_style']].erup[Data[i]['volc_name']] = {'juvenile':0,'lithic':0,'altered material':0,'total':0}
+	// }
+
+	// console.log(p)
 	
 	let ternaryData = []
 	for(const[key,value] of Object.entries(t)){
@@ -150,7 +159,7 @@ const TernaryPlot = (props) =>{
 			ternaryData
 		}
 
-			layout={ {width: (50/100)*window.screen.width,colorway : ['#00395E','#FBAB18','#F05729','#7F131B','#B51C7D','#3B180D','#646765'],legend:{orientation:'h'}, height: side[1], title: 'Ternary',autosize:true,uirevision:'true',ternary:
+			layout={ {width: (45/100)*window.screen.width,colorway : ['#00395E','#FBAB18','#F05729','#7F131B','#B51C7D','#3B180D','#646765'],legend:{orientation:'h'}, height: 450, title: 'Ternary',autosize:true,uirevision:'true',ternary:
 			{
 			sum:1,
 			aaxis:{title: 'juvenile', min: 0,

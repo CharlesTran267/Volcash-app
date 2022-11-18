@@ -69,8 +69,7 @@ const PieChart = (props) =>{
 	
 ]
 		}
-		
-        layout={ {width: (33/100)*window.screen.width,colorway: ['#00395E','#FBAB18','#F05729','#7F131B','#B51C7D','#3B180D','#646765'] ,height: side[1], title: dict1[variable] + " Overview" ,legend:{
+	        layout={ {width: (33/100)*window.screen.width,colorway: ['#00395E','#FBAB18','#F05729','#7F131B','#B51C7D','#3B180D','#646765'] ,height: 450, title: dict1[variable] + " Overview" ,legend:{
 		font:{
 			size:10
 		},

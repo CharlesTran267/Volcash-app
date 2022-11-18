@@ -13,10 +13,11 @@ import Histogram from './Histogram';
 import ComparativePieChart from './ComparativePieChart';
 import BigComparativePieChart from './BigComparativePieChart';
 import DropDownForTernary from './DropDownForTernary';
+import PCA from './PCA';
 const axios = require('axios')
 
 // import './NewDashBoardStyling.css'
-
+var variableData = ["convexity","rectangularity","elongation","roundness","circularity","eccentricity_moments","eccentricity_ellipse","solidit","aspect_rat","compactness","circ_rect","comp_elon","circ_elon","rect_comp","contrast","dissimilarity","homogeneity","energy","correlation","asm","blue_mean","blue_std","blue_mode","green_mean","green_std","green_mode","red_mean","red_std","red_mode"];
 let sample = ['CV_DB1','KEL_DB2','KEL_DB3','MEA_DB1','MEA_DB2','SOG_DB1','SOG_DB2','CIN_DB15','CIN_DB2','ONT_DB1','PIN_DB1','STH_DB1','LAP_DB1']
 let dict = {}
 let MagmaCompos = {}
@@ -61,7 +62,7 @@ const Dashboard = () =>{
 	const [AFE,setAFE] = useState([])
 	const [ternary,setTernary] = useState('volc_name')
 
-	let w = (1/2)*window.screen.width
+	let w = (25/100)*window.screen.width
 
 	useEffect(() =>{
 		
@@ -194,29 +195,31 @@ const Dashboard = () =>{
 			
 
 			<div className = 'pieChart' style ={{ display: 'flex' }}>
-				<div >
+				<div style = {{border:'2px solid green'}}>
 				<PieChart onGetLegendSize = {() =>{return legendSize }} onGetSide = {() =>{return side }} onGetData={getData} onGetPieChartVariable={ () => {return 'volc_name'} } />
 				</div>
 
-				<div >
+				<div style = {{border:'2px solid green'}}>
 				<PieChart onGetLegendSize = {() =>{return legendSize }} onGetSide = {() =>{return side }} onGetData={getData} onGetPieChartVariable={ () => {return 'main_type'} } />
 				</div>
 
-				<div >
+				<div style = {{border:'2px solid green'}}>
 				<PieChart onGetLegendSize = {() =>{return legendSize }} onGetSide = {() =>{return side }} onGetData={getData} onGetPieChartVariable={ () => {return 'eruptive_style'} } />
 				</div>
 			</div>
 
-			<div style = {{display:'flex'}}>
+			<div style = {{display:'flex', marginTop:'20px'}}>
 
 			
-			<div>
+			<div style = {{margin:'auto',border:'2px solid green'}}>
 				<TernaryPlot onGetSide = {() => {return [600,800]} } onGetData = {getData} onGetVariable = {() =>{return ternary}} />
 			</div>
 
-			<div style = {{width: {w} }}>
-				<img src = 'http://localhost:5004/plots' width= {w} height="800"/>
+			<div style = {{width: (4.5/10)*window.screen.width, margin:'auto', border:'2px solid green' }}>
+				<PCA/>
 			</div>
+
+			
 
 			</div>
 
@@ -234,8 +237,10 @@ const Dashboard = () =>{
 				<div>
 					<h2>Compare Volcano</h2>
 				</div>
-				<Histogram  onGetSide = {() =>{return [600,800] }} onGetAFE = {getAFE} onGetData = {getData} onGetVariable = { () => {return 'volc_name'}  } />
 
+				
+				<Histogram  onGetSide = {() =>{return [600,800] }} onGetAFE = {getAFE} onGetData = {getData} onGetVariable = { () => {return 'volc_name'}  } />
+			
 			</div>
 
 			<div>
