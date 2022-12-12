@@ -17,6 +17,7 @@ const OverviewTimeLine = (props) =>{
   const [AFE,setAFE] = useState([])
   const [r,reset] = useState(0)
 
+  // console.log(document.body.clientWidth)
 
   useEffect(() =>{
     axios.get(`${proxy}/volcanoes/getAFE`)
@@ -265,9 +266,9 @@ zoomList.push({
     var posX = e.clientX;
 	
     console.log(posX)
-    let dis = Math.floor(list[Math.floor((list.length)/29)+1] - list[0]) + [list[Math.floor(list.length/29)+1] - list[0]-(Math.floor(list[Math.floor(list.length/29)+1] - list[0]))]/(0.12)
+    let dis = Math.floor(list[Math.floor((list.length)/5)+1] - list[0]) + [list[Math.floor(list.length/5)+1] - list[0]-(Math.floor(list[Math.floor(list.length/5)+1] - list[0]))]/(0.12)
     console.log(dis)
-    setYearDown(dis*(posX/w-(462)/w)/(33/w) + list[0] );
+    setYearDown(dis*(posX/w-(469)/w)/(200/w) + list[0] );
       
   }
 
@@ -276,9 +277,9 @@ zoomList.push({
     var w = window.innerWidth;
     var posX = e.clientX;
     // let x = Math.floor((posX-19)/19)
-    let dis = Math.floor(list[(Math.floor(list.length/29))+1] - list[0]) + [list[Math.floor(list.length/29)+1] - list[0]-(Math.floor(list[Math.floor(list.length/29)+1] - list[0]))]/(0.12)
-    setYearUp((dis)*(posX/w-(462)/w)/(33/w) + list[0] );
-    var yU = (dis)*(posX/w-(462)/w)/(33/w) + list[0];
+    let dis = Math.floor(list[(Math.floor(list.length/5))+1] - list[0]) + [list[Math.floor(list.length/5)+1] - list[0]-(Math.floor(list[Math.floor(list.length/5)+1] - list[0]))]/(0.12)
+    setYearUp((dis)*(posX/w-(469)/w)/(200/w) + list[0] );
+    var yU = (dis)*(posX/w-(469)/w)/(200/w) + list[0];
     // var m = Math.floor((yU-Math.floor(yU)) /0.1) + 1 ;
    
     props.onPassData(yearDown,yU);

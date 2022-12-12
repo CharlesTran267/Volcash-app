@@ -233,12 +233,12 @@ zoomList.push({
     var e = window.event;
     var w = window.innerWidth;
     var posX = e.clientX;
-	
+
    
-    let dis = Math.floor(list[Math.floor((list.length)/29)+1] - list[0]) 
+    let dis = Math.floor(list[Math.floor((list.length)/5)+1] - list[0]) 
     
     // console.log(Math.floor(Math.floor(dis*(posX/w-(462)/w)/(33/w) + list[0] )/1000)*1000)
-    setYearDown(Math.floor(Math.floor(dis*(posX/w-(462)/w)/(33/w) + list[0] )/100)*100);
+    setYearDown(Math.floor(Math.floor(dis*(posX/w-(469)/w)/(200/w) + list[0] )/100)*100);
       
   }
 
@@ -247,11 +247,11 @@ zoomList.push({
     var w = window.innerWidth;
     var posX = e.clientX;
     // let x = Math.floor((posX-19)/19)
-    let dis = Math.floor(list[(Math.floor(list.length/29))+1] - list[0]) 
+    let dis = Math.floor(list[(Math.floor(list.length/5))+1] - list[0]) 
     
   
-    setYearUp(Math.floor(Math.floor(dis*(posX/w-(462)/w)/(33/w) + list[0] )/100)*100)
-    var yU = Math.floor(Math.floor(dis*(posX/w-(462)/w)/(33/w) + list[0] )/100)*100
+    setYearUp(Math.floor(Math.floor(dis*(posX/w-(469)/w)/(200/w) + list[0] )/100)*100)
+    var yU = Math.floor(Math.floor(dis*(posX/w-(469)/w)/(200/w) + list[0] )/100)*100
     // var m = Math.floor((yU-Math.floor(yU)) /0.1) + 1 ;
     console.log(yearDown)
    console.log(yU)

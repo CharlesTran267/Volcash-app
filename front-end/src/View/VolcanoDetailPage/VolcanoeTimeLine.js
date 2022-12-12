@@ -335,7 +335,7 @@ const ChangeGraph = (choice) => {
 
 
       return (
-      <div style = {{width:(7.2/10)*window.innerWidth}}>  
+      <div style = {{width:(7.2/10)*window.screen.availWidth}}>  
           
             <div style = {{width:'100%'}}>
               {/* <div>
