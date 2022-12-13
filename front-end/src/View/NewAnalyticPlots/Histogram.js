@@ -527,7 +527,7 @@ for(let j =0; j<main_type.length;j++){
 		</div>	
 <div style ={{ display:'flex' }}  >
 	
-<div style = {{margin:'auto',border:'2px solid green'}}>
+<div style = {{margin:'auto',border:'2px solid #0c4aad'}}>
 
 <div style = {{display:'flex'}}>
 	<div style = {{marginRight:'30px'}}>
@@ -567,7 +567,7 @@ xaxis: {
 />
 </div>
 
-<div style ={{margin:'auto',border:'2px solid green'}}>
+<div style ={{margin:'auto',border:'2px solid #0c4aad'}}>
 
 <div style = {{display:'flex'}}>
 	<div style = {{marginRight:'30px'}}>

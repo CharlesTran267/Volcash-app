@@ -1363,7 +1363,7 @@ const PCA = () =>{
 		<div>
 			<Plot
 				data= {data}
-				layout={ {width: (40/100)*window.screen.width,
+				layout={ {width: (40/100)*window.screen.width,title:'PCA',
 					xaxis: {
 						visible: true,
 						showline:false,

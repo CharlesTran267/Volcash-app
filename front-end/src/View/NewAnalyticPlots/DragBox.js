@@ -6,22 +6,25 @@ import { useState } from 'react';
 
 const DragBox = (props) => {
 
-	const [aa,setAA] = useState(window.screen.width*(30/100));
-	const [dd,setDD] = useState(window.screen.width*(30/100));
+	const [aa,setAA] = useState(0);
+	const [dd,setDD] = useState(0);
 	const [check,setCheck] = useState(0);
 	
 
 	const hD = () =>{
 		if(check != 0){
-			let r = window.event.clientX - dd - window.screen.width*(30/100);
+			
+			let r = window.event.clientX - dd - (30/100)*window.screen.width;
 		
 			setAA(r)
 		}
 	}
 
+
 	const mD = () =>{
 		setCheck(1);
-		setDD(window.event.clientX-window.screen.width*(30/100));
+		
+		setDD(window.event.clientX - (30/100)*window.screen.width );
 	}
 
 	const mU = () => {

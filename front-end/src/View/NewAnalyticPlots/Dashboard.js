@@ -195,15 +195,15 @@ const Dashboard = () =>{
 			
 
 			<div className = 'pieChart' style ={{ display: 'flex' }}>
-				<div style = {{border:'2px solid green'}}>
+				<div style = {{border:'2px solid #0c4aad'}}>
 				<PieChart onGetLegendSize = {() =>{return legendSize }} onGetSide = {() =>{return side }} onGetData={getData} onGetPieChartVariable={ () => {return 'volc_name'} } />
 				</div>
 
-				<div style = {{border:'2px solid green'}}>
+				<div style = {{border:'2px solid #0c4aad'}}>
 				<PieChart onGetLegendSize = {() =>{return legendSize }} onGetSide = {() =>{return side }} onGetData={getData} onGetPieChartVariable={ () => {return 'main_type'} } />
 				</div>
 
-				<div style = {{border:'2px solid green'}}>
+				<div style = {{border:'2px solid #0c4aad'}}>
 				<PieChart onGetLegendSize = {() =>{return legendSize }} onGetSide = {() =>{return side }} onGetData={getData} onGetPieChartVariable={ () => {return 'eruptive_style'} } />
 				</div>
 			</div>
@@ -211,11 +211,11 @@ const Dashboard = () =>{
 			<div style = {{display:'flex', marginTop:'20px'}}>
 
 			
-			<div style = {{margin:'auto',border:'2px solid green'}}>
+			<div style = {{margin:'auto',border:'2px solid #0c4aad'}}>
 				<TernaryPlot onGetSide = {() => {return [600,800]} } onGetData = {getData} onGetVariable = {() =>{return ternary}} />
 			</div>
 
-			<div style = {{width: (4.5/10)*window.screen.width, margin:'auto', border:'2px solid green' }}>
+			<div style = {{width: (4.5/10)*window.screen.width, margin:'auto', border:'2px solid #0c4aad' }}>
 				<PCA/>
 			</div>
 
